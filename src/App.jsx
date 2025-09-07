@@ -129,7 +129,7 @@ const Hero = () => {
 
 const Projects = () => {
   return (
-    <section id="projects" className="relative py-24 isolate">
+    <section id="projects" className="relative py-24 isolate overflow-hidden">
       <SilhouetteShapes variant="webdev" intensity={0.6} />
       <Container>
         <SectionTitle
@@ -230,7 +230,7 @@ const Projects = () => {
 }
 const Skills = () => {
   return (
-    <section id="skills" className="relative py-24 border-y border-white/5 bg-gradient-to-b from-white/[.02] to-transparent isolate">
+    <section id="skills" className="relative py-24 border-y border-white/5 bg-gradient-to-b from-white/[.02] to-transparent isolate overflow-hidden">
       <SilhouetteShapes variant="network" intensity={0.5} />
       <Container>
         <SectionTitle title="Skills" subtitle="Technologies and tools I work with" />
@@ -301,7 +301,7 @@ const Skills = () => {
 }
 
 const About = () => (
-  <section id="about" className="relative py-24 isolate">
+  <section id="about" className="relative py-24 isolate overflow-hidden">
     <SilhouetteShapes variant="webdev" intensity={0.4} />
     <Container>
       <SectionTitle title="About Me" subtitle="Who I am and what I can offer" />
@@ -347,7 +347,7 @@ const About = () => (
 )
 
 const Contact = () => (
-  <section id="contact" className="py-24">
+  <section id="contact" className="py-24 overflow-hidden">
     <Container>
       <SectionTitle title="Contact" subtitle="Let’s connect through my socials" />
       <div className="grid md:grid-cols-2 gap-6">
