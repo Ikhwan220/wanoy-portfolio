@@ -1,6 +1,7 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { FaTiktok, FaInstagram } from "react-icons/fa";
+import { FiMenu, FiX } from "react-icons/fi";
 import SilhouetteShapes from "./components/SilhouetteShapes"
 
 const Container = ({ children, className = "" }) => (
@@ -23,6 +24,7 @@ const SectionTitle = ({ title, subtitle }) => (
 )
 
 const Navbar = () => {
+  const [open, setOpen] = useState(false)
   const links = [
     { href: "#home", label: "Home" },
     { href: "#projects", label: "Projects" },
@@ -32,20 +34,49 @@ const Navbar = () => {
   ]
   return (
     <nav className="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-slate-950/60 border-b border-white/5">
-      <Container className="flex items-center justify-between h-16">
+      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 h-16 flex items-center justify-between">
         <a href="#home" className="font-bold tracking-tight text-white">Ikhwanul Hidayat</a>
+
+        {/* desktop */}
         <ul className="hidden md:flex items-center gap-6 text-sm text-white/70">
           {links.map(l => (
             <li key={l.href}><a className="hover:text-white transition" href={l.href}>{l.label}</a></li>
           ))}
         </ul>
         <a href="#contact"
-          className="text-sm rounded-xl border border-white/10 
-              bg-primary-600/20 hover:bg-primary-600/30 
-              px-4 py-2 transition">
+          className="hidden md:inline-block text-sm rounded-xl border border-white/10 bg-primary-600/20 hover:bg-primary-600/30 px-4 py-2 transition">
           Hire me
         </a>
-      </Container>
+
+        {/* mobile */}
+        <button
+          className="md:hidden inline-flex items-center justify-center rounded-xl border border-white/10 px-3 py-2 text-white/80"
+          onClick={() => setOpen(v => !v)}
+          aria-label="Toggle menu"
+        >
+          {open ? <FiX /> : <FiMenu />}
+        </button>
+      </div>
+
+      {/* drawer mobile */}
+      {open && (
+        <motion.div initial={{ y: -8, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
+          className="md:hidden border-t border-white/10 bg-slate-950/95">
+          <ul className="max-w-6xl mx-auto px-4 sm:px-6 py-3 text-white/90">
+            {links.map(l => (
+              <li key={l.href}>
+                <a href={l.href} className="block py-3" onClick={() => setOpen(false)}>{l.label}</a>
+              </li>
+            ))}
+            <li className="pt-2">
+              <a href="#contact" onClick={() => setOpen(false)}
+                className="inline-block w-full text-center rounded-xl border border-white/10 bg-primary-600/20 hover:bg-primary-600/30 px-4 py-2 transition">
+                Hire me
+              </a>
+            </li>
+          </ul>
+        </motion.div>
+      )}
     </nav>
   )
 }
@@ -324,7 +355,7 @@ const Contact = () => (
         {/* Email Card (opsional) */}
         <div className="rounded-3xl border border-white/10 bg-white/[.03] p-6 shadow-soft">
           <p className="text-white/80">Email</p>
-          <a className="text-white/90 underline" href="mailto:wanoy@example.com">
+          <a className="text-white/90 underline" href="mailto:ikhwanulhidayat22@gmail.com">
             ikhwanulhidayat22@gmail.com
           </a>
         </div>
@@ -363,7 +394,7 @@ const Contact = () => (
 const Footer = () => (
   <footer className="py-10 border-t border-white/5 text-center text-white/50">
     <Container>
-      <p>© {new Date().getFullYear()} ikwhan - All rights reserved.</p>
+      <p>© {new Date().getFullYear()} Ikhwan — All rights reserved.</p>
     </Container>
   </footer>
 )

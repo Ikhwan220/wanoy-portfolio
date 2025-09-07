@@ -10,14 +10,14 @@ import {
 /**
  * SilhouetteShapes (variants with animated icons)
  * variant: "gamer" | "webdev" | "network" | (fallback: "hero")
- * - Parallax blobs (kalem)
- * - Ikon bertema yang float/rotate halus
+ * - Parallax blobs
+ * - Ikon tematik float halus
  * - Wave divider opsional per variant
  */
 export default function SilhouetteShapes({
     variant = "hero",
     intensity = 1,
-    wave // kalau undefined, kita atur default per-variant
+    wave // kalau undefined, pakai default dari preset
 }) {
     const { scrollYProgress } = useScroll()
     const yA = useTransform(scrollYProgress, [0, 1], [0, -40 * intensity])
@@ -82,7 +82,7 @@ export default function SilhouetteShapes({
     // ikon mengambang
     const FloatIcon = ({ children, className = "", delay = 0, dist = 12, dur = 5 }) => (
         <motion.div
-            className={`absolute ${className}`}
+            className={`pointer-events-none absolute -z-10 ${className}`}
             initial={{ y: 0, rotate: 0, opacity: 0.9 }}
             animate={{ y: [0, -dist, 0], rotate: [0, 3, 0], opacity: [0.9, 1, 0.9] }}
             transition={{ duration: dur, repeat: Infinity, ease: "easeInOut", delay }}
@@ -105,8 +105,8 @@ export default function SilhouetteShapes({
             return (
                 <>
                     <FloatIcon className="left-10 top-10 text-white/90 text-3xl md:text-4xl" delay={0.1}><FaCode /></FloatIcon>
-                    <FloatIcon className="left-1/3 top-28 text-white/85 text-3xl md:text-4xl" delay={0.5} dist={14}><FaLaptopCode /></FloatIcon>
-                    <FloatIcon className="left-12 top-56 text-white/85 text-3xl md:text-4xl" delay={0.9} dist={18}><FaReact /></FloatIcon>
+                    <FloatIcon className="left-1/3 top-28 text-white/80 text-3xl md:text-4xl" delay={0.5} dist={14}><FaLaptopCode /></FloatIcon>
+                    <FloatIcon className="left-12 top-56 text-white/80 text-3xl md:text-4xl" delay={0.9} dist={18}><FaReact /></FloatIcon>
                 </>
             )
         }
@@ -114,8 +114,8 @@ export default function SilhouetteShapes({
             return (
                 <>
                     <FloatIcon className="right-12 top-10 text-white/90 text-3xl md:text-4xl" delay={0.15}><FaServer /></FloatIcon>
-                    <FloatIcon className="right-1/4 top-32 text-white/85 text-3xl md:text-4xl" delay={0.55} dist={16}><FaNetworkWired /></FloatIcon>
-                    <FloatIcon className="right-14 top-60 text-white/85 text-3xl md:text-4xl" delay={0.95} dist={14}><FaWifi /></FloatIcon>
+                    <FloatIcon className="right-1/4 top-32 text-white/80 text-3xl md:text-4xl" delay={0.55} dist={16}><FaNetworkWired /></FloatIcon>
+                    <FloatIcon className="right-14 top-60 text-white/80 text-3xl md:text-4xl" delay={0.95} dist={14}><FaWifi /></FloatIcon>
                 </>
             )
         }
@@ -126,8 +126,10 @@ export default function SilhouetteShapes({
         <>
             <Blob which="a" />
             <Blob which="b" />
-            {/* ikon tematik */}
-            {renderIcons()}
+            {/* ikon tematik: sembunyikan di mobile agar tidak menutupi konten */}
+            <div className="hidden md:block">
+                {renderIcons()}
+            </div>
 
             {/* wave divider */}
             {showWave && (
